@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto'); /* font by Google @ https://fonts.google.com/specimen/Roboto?selection.family=Roboto*/
+
+
+
+body {					/* Makes navbar work properly */
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', sans-serif;
+}
+
+
+button {
+	border: 1px solid black;
+	border-radius: 5px;
+	background-color: lightgray;
+	padding: 5px;
+}
+
+#shop {
+	width: 75%;
+	border: 1px solid lightgray;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+#shop hr {
+	border: 1px solid lightgray;
+}
+
+.purchase {
+	display:inline-block;
+	margin: 5px;
+	height: 125px;
+	width: 100px;
+	background-color: lightgray;
+	border: 1px solid gray;
+	border-radius: 3px;
+}
+
+.container {
+	margin: 2%;
+}
+
+hr {
+	border: 1px solid black;
+}
