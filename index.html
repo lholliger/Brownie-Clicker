@@ -1,18 +1,32 @@
 <head>
-	<title>Brownie Points</title>
+	<title>Brownie Points 1.0</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel='stylesheet' href='captain.css?id=2'>
+	<link rel='stylesheet' href='captain.css?id=3'>
+	<script src='brownie.js?id=1'></script>
 </head>
 
 <body onload='init();'>
 	<center>
 		<div class='container'>
-			<h1>Brownie Points</h1>
+			<h1>Brownie Points<font color='#7c5125'><sup>1.0</sup></font></h1>
 			<p>Get all the brownies!</p>
 			<hr>
+			<a href="#">Per Second Shop</a> | <a href="#">Per Second Shop</a> | <a href="#">Settings</a> | <a href="#">Leaderboard</a>
+			<hr>
 			<br>
+			<h2 id='brownies'>Loading...</h2>
+			<p id='info'>Loading... | Loading...</p>
 			<img onclick='addpt()' src='brownie.jpg' width='200px' height='200px'><br>
 		</div>
-		<p>&copy; CaptainWebServices 2017</p>
+		<p>BrowniePoints &copy; CaptainWebServices 2017</p>
 	</center>
+
 </body>
+
+<script>
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        addpt();
+    }
+}
+</script>

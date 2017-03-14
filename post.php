@@ -19,7 +19,7 @@ if ($_GET['ACT'] == "GET_UUID") {
 		file_put_contents("$dir/username", "player");
 		file_put_contents("$dir/perclick", "1");
 		file_put_contents("$dir/persecond", "0");
-		file_put_contents("$dir/total");
+		file_put_contents("$dir/total", "0");
 		file_put_contents("$dir/purchace", "0;0;0;0;0;0;0;0;");
 		setcookie("BR_UUID", $UUID, time() + (10 * 365 * 24 * 60 * 60));
 		echo $UUID;
@@ -29,7 +29,7 @@ if ($_GET['ACT'] == "GET_UUID") {
 }
 
 if ($_GET['ACT'] == "GET_BROWNIE") {
-	$UUID = microtime_float();
+	$UUID = $_COOKIE['BR_UUID'];
 	echo file_get_contents("../data/$UUID/total");
 }
 
@@ -44,6 +44,18 @@ if ($_GET['ACT'] == "POST_TOTAL") {
 		echo "DENY-TOO-FAST";
 	} else {
 		echo "PASS-VER-TEST";
+		file_put_contents("$dir/total", $TOTAL);
 	}
+}
+
+if ($_GET['ACT'] == "GET_PC") {
+	$UUID = $_COOKIE['BR_UUID'];
+	echo file_get_contents("../data/$UUID/perclick");
+}
+
+
+if ($_GET['ACT'] == "GET_PS") {
+	$UUID = $_COOKIE['BR_UUID'];
+	echo file_get_contents("../data/$UUID/persecond");
 }
 ?>

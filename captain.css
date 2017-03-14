@@ -44,3 +44,8 @@ button {
 hr {
 	border: 1px solid black;
 }
+
+a {
+	color: #7c5125;
+	text-decoration: none;
+}
