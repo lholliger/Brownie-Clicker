@@ -58,4 +58,32 @@ if ($_GET['ACT'] == "GET_PS") {
 	$UUID = $_COOKIE['BR_UUID'];
 	echo file_get_contents("../data/$UUID/persecond");
 }
+
+
+if ($_GET['ACT'] == "GET_HS") {
+	$files = array_diff(scandir("../data"), array('..', '.'));
+	$u = array();
+	$s = array();
+	$sb= array();
+	foreach($files as $file) {
+		echo $file  . "<br>" . file_get_contents("../data/$file/total");
+		$u = array_push($u, $file);
+		$s = array_push($s, file_get_contents("../data/$file/total"));
+		$sb= array_push($sb, file_get_contents("../data/$file/total"));
+	}
+	print_r($s);
+	$s = arsort($s, SORT_NUMERIC);
+	print_r($s);
+	$s = array_slice($s,0,5);
+	$tt = array();
+	$i = 0;
+	foreach($s as $p) {
+		if ($p == $sb[$i]) {
+			$tt = array_push($tt, array($u[$i], $sb[$i]));
+		} else {
+		}
+		$i = $i + 1;
+	}
+	print_r($tt);
+}
 ?>

@@ -49,3 +49,8 @@ a {
 	color: #7c5125;
 	text-decoration: none;
 }
+
+.shop {
+	border: 1px solid gray;
+	border-radius: 5px;
+}

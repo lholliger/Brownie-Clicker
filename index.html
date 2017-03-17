@@ -8,13 +8,15 @@
 <body onload='init();'>
 	<center>
 		<div class='container'>
-			<h1>Brownie Points<font color='#7c5125'><sup>1.0</sup></font></h1>
+			<h1>Brownie Points<font color='#7c5125' size="5px"><sup>1.0</sup></font></h1>
 			<p>Get all the brownies!</p>
 			<hr>
 			<a href="#">Per Second Shop</a> | <a href="#">Per Second Shop</a> | <a href="#">Settings</a> | <a href="#">Leaderboard</a>
 			<hr>
 			<br>
 			<h2 id='brownies'>Loading...</h2>
+			<div class='shop' id='shop-ps'>
+			</div>
 			<p id='info'>Loading... | Loading...</p>
 			<img onclick='addpt()' src='brownie.jpg' width='200px' height='200px'><br>
 		</div>
@@ -29,4 +31,11 @@ document.body.onkeyup = function(e){
         addpt();
     }
 }
+/*  this will be uncommented when official release is done
+if (location.protocol != 'https:')
+{
+ location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+}
+*/
+
 </script>
