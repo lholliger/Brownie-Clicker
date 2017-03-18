@@ -2,8 +2,11 @@ var total = 0;	// total brownies
 var pc = 1;	// per click
 var ps = 0;	// per second
 
-var ct = 0;	// server cache
+var sync = 0;	// server cache
 var cm = 5;	// check with server
+
+var ccps = 0;	// current clicks per second
+var acps = 15;	// allowed cps
 
 function httpGet(theUrl)
 {
@@ -44,7 +47,51 @@ function update() {
 
 
 function addpt() {
+	if (ccps > acps) {
+		document.getElementById("server").innerHTML = "<font color='red'><b>Oops:</b> You are only allowed to click 15 times per second!</font>";
+	} else {
+	ccps++;
 	total = total + pc;
 	update();
+	}
 }
 
+function second() {
+	sync++;
+	if (sync >= 5) {
+		five();
+		sync = 0;
+	}
+
+	total = total + ps;
+	update();
+	ccps = 0;
+}
+function five() {
+	var returninfo = httpGet("post.php?ACT=POST_TOTAL&TOTAL=" + total);
+	if (returninfo == "DENY-TOO-FAST") {
+		document.getElementById("server").innerHTML = "<font color='red'><b>Error:</b> the server rejected your sync due to adding to many points too fast. reload your page now</font>";
+		total = httpGet("post.php?ACT=GET_BROWNIE");
+		update();
+	}
+
+	if (returninfo == "DENY-ACT-DECT") {
+		document.getElementById("server").innerHTML = "<font color='red'><b>Error:</b> the server rejected your sync due to possible autoclicking. Stop clicking, you can be tempbanned by the server</font>";
+		total = httpGet("post.php?ACT=GET_BROWNIE");
+		update();
+	}
+	if (returninfo == "DENY-FAST-SYNC") {
+		document.getElementById("server").innerHTML = "<font color='red'><b>Error:</b> the server rejected your sync due to syncing too fast</font>";
+		total = httpGet("post.php?ACT=GET_BROWNIE");
+		update();
+	}
+
+	if (returninfo == "PASS-VER-TEST") {
+		document.getElementById("server").innerHTML = "<font color='green'>points saved to server</font>";
+	}
+}
+
+
+
+
+setInterval(second,1000);

@@ -20,6 +20,7 @@ if ($_GET['ACT'] == "GET_UUID") {
 		file_put_contents("$dir/perclick", "1");
 		file_put_contents("$dir/persecond", "0");
 		file_put_contents("$dir/total", "0");
+		file_put_contents("$dir/sync",  "" . microtime_float());
 		mkdir("$dir/purchace");
 		setcookie("BR_UUID", $UUID, time() + (10 * 365 * 24 * 60 * 60));
 		echo $UUID;
@@ -43,9 +44,12 @@ if ($_GET['ACT'] == "POST_TOTAL") {
 	if ($TOTAL > ($cu + ($pc * 15 * 5) + ($ps * 5))) {
 		echo "DENY-TOO-FAST";
 	} else {
-		echo "PASS-VER-TEST";
-		$TOTAL = $cu + $TOTAL;
-		file_put_contents("$dir/total", $TOTAL);
+		if ((file_get_contents("$dir/sync") + 4) > microtime_float()) {
+			echo "DENY-FAST-SYNC";
+		} else {
+			echo "PASS-VER-TEST";
+			file_put_contents("$dir/total", $TOTAL);
+		}
 	}
 }
 
