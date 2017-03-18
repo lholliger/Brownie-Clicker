@@ -89,6 +89,12 @@ function five() {
 	if (returninfo == "PASS-VER-TEST") {
 		document.getElementById("server").innerHTML = "<font color='green'>points saved to server</font>";
 	}
+	/* Will be unshown when menu works
+	if (1 == 1) {
+	var hs = httpGet("post.php?ACT=GET_HS");
+		document.getElementById("highscores").innerHTML = hs;
+	}
+	*/
 }
 
 

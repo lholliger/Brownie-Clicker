@@ -65,32 +65,42 @@ if ($_GET['ACT'] == "GET_PS") {
 }
 
 
+
 if ($_GET['ACT'] == "GET_HS") {
 	$files = array_diff(scandir("../data"), array('..', '.'));
 	$u = array();
 	$s = array();
 	$sb= array();
 	foreach($files as $file) {
-		echo $file  . "<br>" . file_get_contents("../data/$file/total");
-		$u = array_push($u, $file);
-		$s = array_push($s, file_get_contents("../data/$file/total"));
-		$sb= array_push($sb, file_get_contents("../data/$file/total"));
+		array_push($u, file_get_contents("../data/$file/username"));
+		array_push($s, file_get_contents("../data/$file/total"));
+		array_push($sb, file_get_contents("../data/$file/total"));
 	}
-	print_r($s);
-	$s = arsort($s, SORT_NUMERIC);
-	print_r($s);
-	$s = array_slice($s,0,5);
+	echo "<br>";
+	arsort($s, SORT_NUMERIC);
+	$s2 =array_slice($s,0,5);
 	$tt = array();
 	$i = 0;
-	foreach($s as $p) {
-		if ($p == $sb[$i]) {
-			$tt = array_push($tt, array($u[$i], $sb[$i]));
+	foreach($s2 as $p) {
+		foreach($sb as $n) {
+		if ($p == $n) {
+			array_push($tt, array($u[$i], $sb[$i]));
+			unset($u[$i]);
+			unset($sb[$i]);
 		} else {
 		}
 		$i = $i + 1;
+		}
+		$i = 0;
 	}
-	print_r($tt);
+	echo "<table>";
+	echo "<tr><td><b>Userame</b></td><td><b>Score</b></td></tr>";
+	foreach($tt as $b) {
+		echo "<tr><td>" . $b[0] . "</td><td>" . $b[1] . "</td></tr>";
+	}
+	echo "</table>";
 }
+
 
 if ($_GET['ACT'] == "BUY_ITEM") {
 	$item = $_GET['ITID'];
@@ -161,4 +171,15 @@ if ($_GET['ACT'] == "BUY_ITEM") {
 		echo "PUR_DEN";
 	}
 }
+if ($_GET['ACT'] == "SET_USER") {
+	$USR = $_COOKIE['BR_UUID'];
+	$string = $_GET['UN'];
+	$string=preg_replace('/[[:^print:]]/','',$string);
+	if (strlen($string) <= 20) { // http://stackoverflow.com/questions/11434091/add-if-string-is-too-long-php
+		file_put_contents("../data/$USR/username", $string);
+	} else {
+		file_put_contents("../data/$USR/username", substr($string, 0, 20));
+	}
+}
+
 ?>
