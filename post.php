@@ -20,7 +20,7 @@ if ($_GET['ACT'] == "GET_UUID") {
 		file_put_contents("$dir/perclick", "1");
 		file_put_contents("$dir/persecond", "0");
 		file_put_contents("$dir/total", "0");
-		file_put_contents("$dir/purchace", "0;0;0;0;0;0;0;0;");
+		mkdir("$dir/purchace");
 		setcookie("BR_UUID", $UUID, time() + (10 * 365 * 24 * 60 * 60));
 		echo $UUID;
 	}
@@ -44,6 +44,7 @@ if ($_GET['ACT'] == "POST_TOTAL") {
 		echo "DENY-TOO-FAST";
 	} else {
 		echo "PASS-VER-TEST";
+		$TOTAL = $cu + $TOTAL;
 		file_put_contents("$dir/total", $TOTAL);
 	}
 }
@@ -85,5 +86,75 @@ if ($_GET['ACT'] == "GET_HS") {
 		$i = $i + 1;
 	}
 	print_r($tt);
+}
+
+if ($_GET['ACT'] == "BUY_ITEM") {
+	$item = $_GET['ITID'];
+	$UUID = $_COOKIE['BR_UUID'];
+	$alld = array("1", "2","3", "4","5", "6","7", "8"); //This is to keep you haxors from making items that just take up my storage/get past my files
+	$dir = "../data/$UUID";
+	if (in_array($item, $alld)) {
+		echo "PUR_ACC";
+		if (file_exists("$dir/purchace/$item")) {
+
+			$ao = file_get_contents("$dir/purchace/$item");
+
+		} else {
+
+			file_put_contents("$dir/purchace/$item", "0");
+			$ao = 0;
+
+		}
+		$bal = file_get_contents("$dir/total");
+
+		if ($ao == 0) {
+			$cost = file_get_contents("costs/$item");
+			if ($bal >= $cost) {
+				echo "BAL_ACC";
+				file_put_contents("$dir/total", $bal - $cost);
+				file_put_contents("$dir/purchace/$item", $ao + 1);
+				$itdata = file_get_contents("change/$item");
+
+				if ($itdata[0] == "s") {
+					$itdata = str_replace("s", "", $itdata);
+					file_put_contents("$dir/persecond", file_get_contents("$dir/persecond") + $itdata);
+				}
+
+				if ($itdata[0] == "c") {
+					$itdata = str_replace("c", "", $itdata);
+					file_put_contents("$dir/persecond", file_get_contents("$dir/persecond") + $itdata);
+				}
+				
+			} else {
+				echo "BAL_DEN";
+			}
+		} else {
+			$cost = file_get_contents("costs/$item") * file_get_contents("multiply/$item") * (file_get_contents("$dir/purchace/$item"));
+			echo $cost;
+			if ($bal >= $cost) {
+				echo "BAL_ACC";
+				file_put_contents("$dir/total", $bal - $cost);
+				file_put_contents("$dir/purchace/$item", $ao + 1);
+				$itdata = file_get_contents("change/$item");
+
+
+
+				if ($itdata[0] == "s") {
+					$itdata = str_replace("s", "", $itdata);
+					file_put_contents("$dir/persecond", file_get_contents("$dir/persecond") + $itdata);
+				}
+
+				if ($itdata[0] == "c") {
+					$itdata = str_replace("c", "", $itdata);
+					file_put_contents("$dir/persecond", file_get_contents("$dir/persecond") + $itdata);
+				}
+			} else {
+				echo "BAL_DEN";
+			}
+		}
+
+	} else {
+		echo "PUR_DEN";
+	}
 }
 ?>
