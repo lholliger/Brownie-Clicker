@@ -1,15 +1,15 @@
 <head>
 	<title>Brownie Points 1.0</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel='stylesheet' href='captain.css?id=4'>
+	<link rel='stylesheet' href='android.css?id=4'>
 	<script src='brownie.js?id=5'></script>
 </head>
 
 <body onload='init();'>
-	<center>
+	<center>	<div class='nav'>
+			<a href="#">Per Second Shop</a><br><a href="#">Per Second Shop</a><br><a href="#">Settings</a><br><a onclick='show_hs();' href="#">Leaderboard</a>
+			</div>
 		<div class='container'>
-			<a href="#">Per Second Shop</a> | <a href="#">Per Second Shop</a> | <a href="#">Settings</a> | <a onclick='show_hs();' href="#">Leaderboard</a>
-			<hr>
 			<p id='server'><font color='green'>game started successfully</font></p>
 			<br>
 			<h2 id='brownies'>Loading...</h2>
@@ -35,14 +35,4 @@ if (location.protocol != 'https:')
  location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
 }
 */
-
-var ua = navigator.userAgent.toLowerCase();
-var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
-if(isAndroid) {
-  // Do something!
-  // Redirect to Android-site?
-  window.location = 'android.html';
-}
-
-
 </script>
