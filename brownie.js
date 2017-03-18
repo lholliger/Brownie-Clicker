@@ -89,15 +89,24 @@ function five() {
 	if (returninfo == "PASS-VER-TEST") {
 		document.getElementById("server").innerHTML = "<font color='green'>points saved to server</font>";
 	}
-	/* Will be unshown when menu works
-	if (1 == 1) {
+	if (document.getElementById("highscores").style.display == "block") {
 	var hs = httpGet("post.php?ACT=GET_HS");
 		document.getElementById("highscores").innerHTML = hs;
 	}
-	*/
+	
 }
 
+function show_hs() {
 
+if (document.getElementById("highscores").style.display != "block") {
+document.getElementById("highscores").style.display = "block";
+var hs = httpGet("post.php?ACT=GET_HS");
+document.getElementById("highscores").innerHTML = hs;
+
+} else {
+document.getElementById("highscores").style.display = "none";
+}
+}
 
 
 setInterval(second,1000);
