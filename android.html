@@ -7,14 +7,15 @@
 
 <body onload='init();'>
 	<center>	<div class='nav'>
-			<a href="#">Per Second Shop</a><br><a href="#">Per Second Shop</a><br><a href="#">Settings</a><br><a onclick='show_hs();' href="#">Leaderboard</a>
+			<button href="#">Per Second Shop</button><button href="#">Per Second Shop</button><button href="#">Settings</button><button onclick='show_hs();' href="#">Leaderboard</button>
 			</div>
+			<div class='shop' id='highscores' style='display: none;'>
+			</div>
+
 		<div class='container'>
 			<p id='server'><font color='green'>game started successfully</font></p>
 			<br>
 			<h2 id='brownies'>Loading...</h2>
-			<div class='shop' id='highscores' style='display: none;'>
-			</div>
 			<p id='info'>Loading... | Loading...</p>
 			<img onclick='addpt()' src='brownie.jpg' width='200px' height='200px'><br>
 		</div>

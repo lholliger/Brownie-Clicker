@@ -51,17 +51,35 @@ a {
 }
 
 .shop {
-	border-top: 1px solid black;
-	border-bottom: 1px solid black;
+	background-color: #C5CAE9;
+	color: white;
+	padding-bottom: 20px;
+
 }
 
 .nav {
-	background-color: #C5CAE9;
+	padding-top: 5px;
+	background-color: #3F51B5;
 	color: white;
 	
 }
 .nav a {
-	color: gray;
+	color: white;
 }
 
+button {
+	background-color: #3F51B5;
+	width: 25%;
+	padding: 3px;
+	border: none;
+	color: white;
+}
 
+button.sel {
+	background-color: #3F51B5;
+}
+
+#server {
+	color: white;
+	background-color: 
+}
